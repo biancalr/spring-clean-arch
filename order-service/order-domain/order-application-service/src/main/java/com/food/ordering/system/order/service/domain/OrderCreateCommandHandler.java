@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.NotNull;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,17 +27,19 @@ public class OrderCreateCommandHandler {
     private final CustomerRepository customerRepository;
     private final RestaurantRepository restaurantRepository;
     private final OrderDataMapper orderDataMapper;
+    private final ApplicationDomainEventPublisher applicationDomainEventPublisher;
 
     public OrderCreateCommandHandler(OrderDomainService orderDomainService,
                                      OrderRepository orderRepository,
                                      CustomerRepository customerRepository,
                                      RestaurantRepository restaurantRepository,
-                                     OrderDataMapper orderDataMapper) {
+                                     OrderDataMapper orderDataMapper, ApplicationDomainEventPublisher applicationDomainEventPublisher) {
         this.orderDomainService = orderDomainService;
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
         this.restaurantRepository = restaurantRepository;
         this.orderDataMapper = orderDataMapper;
+        this.applicationDomainEventPublisher = applicationDomainEventPublisher;
     }
 
     @Transactional
@@ -49,6 +50,7 @@ public class OrderCreateCommandHandler {
         final var orderCreatedEvent = orderDomainService.validateAndInitiate(order, restaurant);
         final var orderResult = saveOrder(order);
         log.info("Order is created with id {}", orderResult.getId().getValue());
+        applicationDomainEventPublisher.publish(orderCreatedEvent);
         return orderDataMapper.orderToCreateOrderResponse(orderResult);
     }
 
@@ -62,7 +64,7 @@ public class OrderCreateCommandHandler {
         return optionalRestaurant.get();
     }
 
-    private void checkCustomer(@NotNull UUID customerId) {
+    private void checkCustomer(UUID customerId) {
         Optional<Customer> customer = customerRepository.findCustomer(customerId);
         if (customer.isEmpty()) {
             log.warn("Could not find customer with customer restaurantId {}", customerId);
