@@ -1,10 +1,10 @@
-package com.food.ordering.system.order.service.domain;
+package com.food.ordering.system.order.service.domain.service.order;
 
 import com.food.ordering.system.order.service.domain.domain.entity.Customer;
 import com.food.ordering.system.order.service.domain.domain.entity.Order;
 import com.food.ordering.system.order.service.domain.domain.entity.Restaurant;
 import com.food.ordering.system.order.service.domain.domain.event.OrderCreatedEvent;
-import com.food.ordering.system.order.service.domain.domain.eventService.OrderDomainService;
+import com.food.ordering.system.order.service.domain.domain.service.OrderDomainService;
 import com.food.ordering.system.order.service.domain.domain.exception.OrderDomainException;
 import com.food.ordering.system.order.service.domain.dto.create.CreateOrderCommand;
 import com.food.ordering.system.order.service.domain.mapper.OrderDataMapper;

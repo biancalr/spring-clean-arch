@@ -1,4 +1,4 @@
-package com.food.ordering.system.order.service.domain.domain.eventService;
+package com.food.ordering.system.order.service.domain.domain.service;
 
 import com.food.ordering.system.order.service.domain.domain.entity.Order;
 import com.food.ordering.system.order.service.domain.domain.entity.Restaurant;
