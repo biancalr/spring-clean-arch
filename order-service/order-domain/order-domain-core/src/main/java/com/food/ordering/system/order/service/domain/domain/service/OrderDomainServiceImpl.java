@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class OrderDomainServiceImpl implements OrderDomainService {
@@ -24,14 +26,14 @@ public class OrderDomainServiceImpl implements OrderDomainService {
         setOrderProductInformation(order, restaurant);
         order.validateOrder();
         order.initializeOrder();
-        log.info("Order with restaurantId: {} is initiated", order.getId().getValue());
+        log.info("Order with id: {} is initiated", order.getId().getValue());
         return new OrderCreatedEvent(order, ZonedDateTime.now(ZoneId.of(UTC)));
     }
 
     @Override
     public OrderPaidEvent payOrder(Order order) {
         order.pay();
-        log.info("Order with restaurantId {} is paid", order.getId().getValue());
+        log.info("Order with id {} is paid", order.getId().getValue());
         return new OrderPaidEvent(order, ZonedDateTime.now(ZoneId.of(UTC)));
     }
 
@@ -56,19 +58,26 @@ public class OrderDomainServiceImpl implements OrderDomainService {
 
     private void validateRestaurant(Restaurant restaurant) {
         if (!restaurant.isActive()) {
-            throw new OrderDomainException("Restaurant with restaurantId " + restaurant.getId().getValue() +
-                    " is not currently active");
+            throw new OrderDomainException("Restaurant with id " + restaurant.getId().getValue() +
+                    " is currently not active");
         }
     }
 
     private void setOrderProductInformation(Order order, Restaurant restaurant) {
-        order.getItems().forEach(orderItem -> restaurant.getProducts().forEach(restaurantProduct -> {
+        // Cria um mapa de produtos do restaurante por ID
+        final Map<Product, Product> restaurantProductMap = restaurant.getProducts().stream()
+                .collect(Collectors.toMap(p -> p, p -> p));
+
+        // Atualiza os produtos do pedido usando o mapa
+        order.getItems().forEach(orderItem -> {
             Product currentProduct = orderItem.getProduct();
-            if (currentProduct.equals(restaurantProduct)) {
-                currentProduct.updateWithConfirmedNameAndPrice(restaurantProduct.getName(),
+            Product restaurantProduct = restaurantProductMap.get(currentProduct);
+            if (restaurantProduct != null) {
+                currentProduct.updateWithConfirmedNameAndPrice(
+                        restaurantProduct.getName(),
                         restaurantProduct.getPrice());
             }
-        }));
+        });
     }
 
 }
