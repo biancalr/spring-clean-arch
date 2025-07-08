@@ -1,1 +1,3 @@
 # spring-clean-arch
+
+<p>Criação de projeto prático direto ao ponto, exemplificando uma API Restful com Spring, Kubernates e Kafka, aplicando conceitos de Domain Driven Design (DDD), Clean Architecture, Design Patterns e princípios SOLID. Baseado no projeto criado no <a href='https://www.udemy.com/course/microservices-clean-architecture-ddd-saga-outbox-kafka-kubernetes/'>curso</a> de <a href='https://www.udemy.com/user/ali-gelenler/'>Ali Gelenler</a></p>
