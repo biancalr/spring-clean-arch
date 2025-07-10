@@ -15,6 +15,6 @@ services:
       KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=ruok"
     volumes:
       - "./volumes/zookeeper/data:/var/lib/zookeeper/data"
-      - "./volumes/zookeeper/transactions:/var/lib/zookeeper/log"
+      - "./volumes/zookeeper/transactions:/var/lib/zookeeper/log --user 1000"
     networks:
       - ${GLOBAL_NETWORK:-kafka}
