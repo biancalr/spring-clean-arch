@@ -15,7 +15,7 @@ import java.util.List;
 public class PaymentResponse {
     private String id;
     private String sagaId;
-    private String order;
+    private String orderId;
     private String paymentId;
     private String customerId;
     private BigDecimal price;
