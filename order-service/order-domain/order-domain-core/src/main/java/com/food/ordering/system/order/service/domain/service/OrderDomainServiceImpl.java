@@ -1,12 +1,12 @@
-package com.food.ordering.system.order.service.domain.domain.service;
+package com.food.ordering.system.order.service.domain.service;
 
-import com.food.ordering.system.order.service.domain.domain.entity.Order;
-import com.food.ordering.system.order.service.domain.domain.entity.Product;
-import com.food.ordering.system.order.service.domain.domain.entity.Restaurant;
-import com.food.ordering.system.order.service.domain.domain.event.OrderCancelledEvent;
-import com.food.ordering.system.order.service.domain.domain.event.OrderCreatedEvent;
-import com.food.ordering.system.order.service.domain.domain.event.OrderPaidEvent;
-import com.food.ordering.system.order.service.domain.domain.exception.OrderDomainException;
+import com.food.ordering.system.order.service.domain.entity.Order;
+import com.food.ordering.system.order.service.domain.entity.Product;
+import com.food.ordering.system.order.service.domain.entity.Restaurant;
+import com.food.ordering.system.order.service.domain.event.OrderCancelledEvent;
+import com.food.ordering.system.order.service.domain.event.OrderCreatedEvent;
+import com.food.ordering.system.order.service.domain.event.OrderPaidEvent;
+import com.food.ordering.system.order.service.domain.exception.OrderDomainException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.ZoneId;

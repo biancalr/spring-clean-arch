@@ -1,11 +1,11 @@
 package com.food.ordering.system.order.service.domain;
 
 import com.food.ordering.system.domain.valueobject.*;
-import com.food.ordering.system.order.service.domain.domain.entity.Customer;
-import com.food.ordering.system.order.service.domain.domain.entity.Order;
-import com.food.ordering.system.order.service.domain.domain.entity.Product;
-import com.food.ordering.system.order.service.domain.domain.entity.Restaurant;
-import com.food.ordering.system.order.service.domain.domain.exception.OrderDomainException;
+import com.food.ordering.system.order.service.domain.entity.Customer;
+import com.food.ordering.system.order.service.domain.entity.Order;
+import com.food.ordering.system.order.service.domain.entity.Product;
+import com.food.ordering.system.order.service.domain.entity.Restaurant;
+import com.food.ordering.system.order.service.domain.exception.OrderDomainException;
 import com.food.ordering.system.order.service.domain.dto.create.CreateOrderCommand;
 import com.food.ordering.system.order.service.domain.dto.create.CreateOrderResponse;
 import com.food.ordering.system.order.service.domain.dto.create.OrderAddress;

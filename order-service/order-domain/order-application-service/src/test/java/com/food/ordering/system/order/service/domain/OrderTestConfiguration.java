@@ -1,7 +1,7 @@
 package com.food.ordering.system.order.service.domain;
 
-import com.food.ordering.system.order.service.domain.domain.service.OrderDomainService;
-import com.food.ordering.system.order.service.domain.domain.service.OrderDomainServiceImpl;
+import com.food.ordering.system.order.service.domain.service.OrderDomainService;
+import com.food.ordering.system.order.service.domain.service.OrderDomainServiceImpl;
 import com.food.ordering.system.order.service.domain.port.output.message.publisher.payment.OrderCancelledPaymentRequestMessagePublisher;
 import com.food.ordering.system.order.service.domain.port.output.message.publisher.payment.OrderCreatedPaymentRequestMessagePublisher;
 import com.food.ordering.system.order.service.domain.port.output.message.publisher.restaurant.OrderPaidRestaurantRequestMessagePublisher;

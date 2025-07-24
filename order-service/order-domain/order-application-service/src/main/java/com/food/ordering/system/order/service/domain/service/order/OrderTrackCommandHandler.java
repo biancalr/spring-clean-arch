@@ -1,8 +1,8 @@
 package com.food.ordering.system.order.service.domain.service.order;
 
-import com.food.ordering.system.order.service.domain.domain.entity.Order;
-import com.food.ordering.system.order.service.domain.domain.exception.OrderNotFoundException;
-import com.food.ordering.system.order.service.domain.domain.valueObject.TrackingId;
+import com.food.ordering.system.order.service.domain.entity.Order;
+import com.food.ordering.system.order.service.domain.exception.OrderNotFoundException;
+import com.food.ordering.system.order.service.domain.valueObject.TrackingId;
 import com.food.ordering.system.order.service.domain.dto.track.TrackOrderQuery;
 import com.food.ordering.system.order.service.domain.dto.track.TrackOrderResponse;
 import com.food.ordering.system.order.service.domain.mapper.OrderDataMapper;

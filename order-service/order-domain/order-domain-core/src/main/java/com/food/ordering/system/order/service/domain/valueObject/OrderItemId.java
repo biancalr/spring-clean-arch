@@ -1,4 +1,4 @@
-package com.food.ordering.system.order.service.domain.domain.valueObject;
+package com.food.ordering.system.order.service.domain.valueObject;
 
 import com.food.ordering.system.domain.valueobject.BaseId;
 

@@ -1,11 +1,11 @@
-package com.food.ordering.system.order.service.domain.domain.entity;
+package com.food.ordering.system.order.service.domain.entity;
 
 import com.food.ordering.system.domain.entity.AggregateRoot;
 import com.food.ordering.system.domain.valueobject.*;
-import com.food.ordering.system.order.service.domain.domain.exception.OrderDomainException;
-import com.food.ordering.system.order.service.domain.domain.valueObject.OrderItemId;
-import com.food.ordering.system.order.service.domain.domain.valueObject.StreetAddess;
-import com.food.ordering.system.order.service.domain.domain.valueObject.TrackingId;
+import com.food.ordering.system.order.service.domain.exception.OrderDomainException;
+import com.food.ordering.system.order.service.domain.valueObject.OrderItemId;
+import com.food.ordering.system.order.service.domain.valueObject.StreetAddess;
+import com.food.ordering.system.order.service.domain.valueObject.TrackingId;
 
 import java.util.List;
 import java.util.UUID;
