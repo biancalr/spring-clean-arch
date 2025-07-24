@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.food.ordering.system.domain.constant.DomainConstants.UTC;
+
 @Slf4j
 public class OrderDomainServiceImpl implements OrderDomainService {
-
-    public static final String UTC = "UTC";
 
     @Override
     public OrderCreatedEvent validateAndInitiate(Order order, Restaurant restaurant) {
