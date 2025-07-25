@@ -6,7 +6,7 @@ import com.food.ordering.system.payment.service.domain.entity.CreditHistory;
 import java.util.List;
 import java.util.Optional;
 
-public interface CreditHistoeyRepository {
+public interface CreditHistoryRepository {
 
     CreditHistory save(CreditHistory creditHistory);
 
