@@ -349,7 +349,7 @@ public class PaymentResponseAvroModel extends org.apache.avro.specific.SpecificR
    * Creates a new PaymentResponseAvroModel RecordBuilder.
    * @return A new PaymentResponseAvroModel RecordBuilder
    */
-  public static com.food.ordering.system.kafka.order.avro.model.PaymentResponseAvroModel.Builder newBuilder() {
+  public static com.food.ordering.system.kafka.order.avro.model.PaymentResponseAvroModel.Builder builder() {
     return new com.food.ordering.system.kafka.order.avro.model.PaymentResponseAvroModel.Builder();
   }
 
@@ -358,7 +358,7 @@ public class PaymentResponseAvroModel extends org.apache.avro.specific.SpecificR
    * @param other The existing builder to copy.
    * @return A new PaymentResponseAvroModel RecordBuilder
    */
-  public static com.food.ordering.system.kafka.order.avro.model.PaymentResponseAvroModel.Builder newBuilder(com.food.ordering.system.kafka.order.avro.model.PaymentResponseAvroModel.Builder other) {
+  public static com.food.ordering.system.kafka.order.avro.model.PaymentResponseAvroModel.Builder builder(com.food.ordering.system.kafka.order.avro.model.PaymentResponseAvroModel.Builder other) {
     if (other == null) {
       return new com.food.ordering.system.kafka.order.avro.model.PaymentResponseAvroModel.Builder();
     } else {
@@ -371,7 +371,7 @@ public class PaymentResponseAvroModel extends org.apache.avro.specific.SpecificR
    * @param other The existing instance to copy.
    * @return A new PaymentResponseAvroModel RecordBuilder
    */
-  public static com.food.ordering.system.kafka.order.avro.model.PaymentResponseAvroModel.Builder newBuilder(com.food.ordering.system.kafka.order.avro.model.PaymentResponseAvroModel other) {
+  public static com.food.ordering.system.kafka.order.avro.model.PaymentResponseAvroModel.Builder builder(com.food.ordering.system.kafka.order.avro.model.PaymentResponseAvroModel other) {
     if (other == null) {
       return new com.food.ordering.system.kafka.order.avro.model.PaymentResponseAvroModel.Builder();
     } else {
