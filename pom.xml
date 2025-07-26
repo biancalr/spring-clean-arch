@@ -26,6 +26,7 @@
         <module>payment-service/payment-dataaccess</module>
         <module>payment-service/payment-messaging</module>
         <module>payment-service/payment-container</module>
+        <module>restaurant-service</module>
     </modules>
 
     <properties>
