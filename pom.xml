@@ -22,10 +22,6 @@
         <module>infraestructure</module>
         <module>customer-service</module>
         <module>payment-service</module>
-        <module>payment-service/payment-domain</module>
-        <module>payment-service/payment-dataaccess</module>
-        <module>payment-service/payment-messaging</module>
-        <module>payment-service/payment-container</module>
         <module>restaurant-service</module>
     </modules>
 
@@ -108,6 +104,11 @@
             <dependency>
                 <groupId>com.food.ordering.system</groupId>
                 <artifactId>common-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.food.ordering.system</groupId>
+                <artifactId>common-dataaccess</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
