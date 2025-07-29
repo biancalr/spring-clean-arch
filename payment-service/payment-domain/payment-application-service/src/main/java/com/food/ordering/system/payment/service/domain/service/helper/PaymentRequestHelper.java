@@ -40,7 +40,10 @@ public class PaymentRequestHelper {
                                 PaymentDataMapper paymentDataMapper,
                                 PaymentRepository paymentRepository,
                                 CreditEntryRepository creditEntryRepository,
-                                CreditHistoryRepository creditHistoryRepository, PaymentCompletedMessagePublisher paymentCompletedEventDomainEventPublisher, PaymentCancelledMessagePublisher paymentCancelledEventDomainEventPublisher, PaymentFailedMessagePublisher paymentFailedEventDomainEventPublisher) {
+                                CreditHistoryRepository creditHistoryRepository,
+                                PaymentCompletedMessagePublisher paymentCompletedEventDomainEventPublisher,
+                                PaymentCancelledMessagePublisher paymentCancelledEventDomainEventPublisher,
+                                PaymentFailedMessagePublisher paymentFailedEventDomainEventPublisher) {
         this.paymentDomainService = paymentDomainService;
         this.paymentDataMapper = paymentDataMapper;
         this.paymentRepository = paymentRepository;
@@ -54,7 +57,7 @@ public class PaymentRequestHelper {
     @Transactional
     public final PaymentEvent persistPayment(PaymentRequest paymentRequest) {
         log.info("Received payment complete event for order id {}", paymentRequest.getOrderId());
-        final var payment = paymentDataMapper.paymentRequestToPayment(paymentRequest);
+        Payment payment = paymentDataMapper.paymentRequestModelToPayment(paymentRequest);
         return persist(payment);
     }
 
@@ -82,7 +85,7 @@ public class PaymentRequestHelper {
         return creditEntry.get();
     }
 
-    private List<CreditHistory> getCreditHistory(final CustomerId customerId) {
+    private List<CreditHistory> getCreditHistories(final CustomerId customerId) {
         final var creditHistory = creditHistoryRepository.findByCustomerId(customerId);
         if (creditHistory.isEmpty()) {
             log.error("Could not find credit history for customer: {}", customerId.getValue());
@@ -110,7 +113,7 @@ public class PaymentRequestHelper {
         final List<String> failureMessages = new ArrayList<>();
 
         creditEntry = getCreditEntry(payment.getCustomerId());
-        creditHistories = getCreditHistory(payment.getCustomerId());
+        creditHistories = getCreditHistories(payment.getCustomerId());
 
         paymentEvent = switch (payment.getPaymentStatus().name()) {
             case "COMPLETED" ->

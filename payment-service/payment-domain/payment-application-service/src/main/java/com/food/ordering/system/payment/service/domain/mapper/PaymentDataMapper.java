@@ -12,7 +12,7 @@ import java.util.UUID;
 @Component
 public class PaymentDataMapper {
 
-    public Payment paymentRequestToPayment(PaymentRequest paymentRequest) {
+    public Payment paymentRequestModelToPayment(PaymentRequest paymentRequest) {
         return Payment.builder()
                 .orderId(new OrderId(UUID.fromString(paymentRequest.getOrderId())))
                 .customerId(new CustomerId(UUID.fromString(paymentRequest.getCustomerId())))
