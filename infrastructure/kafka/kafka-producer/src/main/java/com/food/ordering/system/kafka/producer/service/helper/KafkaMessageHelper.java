@@ -14,7 +14,7 @@ public class KafkaMessageHelper {
                                                                                 T avroModel,
                                                                                 String avroModelName,
                                                                                 String orderId) {
-        return new ListenableFutureCallback<SendResult<String, T>>() {
+        return new ListenableFutureCallback<>() {
             @Override
             public void onFailure(Throwable ex) {
                 log.error("Error while sending {} message {} to topic {}",
