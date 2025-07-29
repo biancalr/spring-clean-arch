@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>infraestructure</artifactId>
+    <artifactId>infrastructure</artifactId>
     <packaging>pom</packaging>
     <modules>
         <module>kafka</module>
