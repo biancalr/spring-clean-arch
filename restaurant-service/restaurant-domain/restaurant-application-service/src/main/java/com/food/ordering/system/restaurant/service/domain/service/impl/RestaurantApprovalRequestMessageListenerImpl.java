@@ -1,7 +1,6 @@
 package com.food.ordering.system.restaurant.service.domain.service.impl;
 
 import com.food.ordering.system.restaurant.service.domain.dto.RestaurantApprovalRequest;
-import com.food.ordering.system.restaurant.service.domain.event.OrderApprovalEvent;
 import com.food.ordering.system.restaurant.service.domain.ports.input.message.listener.RestaurantApprovalRequestMessageListener;
 import com.food.ordering.system.restaurant.service.domain.service.helper.RestaurantApprovalRequestHelper;
 import lombok.extern.slf4j.Slf4j;
