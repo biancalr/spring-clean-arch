@@ -1,7 +1,6 @@
 package com.food.ordering.system.order.service.domain.service.restaurant;
 
 import com.food.ordering.system.order.service.domain.dto.message.RestaurantApprovalResponse;
-import com.food.ordering.system.order.service.domain.entity.Order;
 import com.food.ordering.system.order.service.domain.event.OrderCancelledEvent;
 import com.food.ordering.system.order.service.domain.port.input.message.listener.restaurantApproval.RestaurantApprovalResponseMessageListener;
 import com.food.ordering.system.order.service.domain.saga.OrderApprovalSaga;

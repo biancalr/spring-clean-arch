@@ -46,7 +46,7 @@ public class PaymentDomainServiceImpl implements PaymentDomainService {
     }
 
     @Override
-    public PaymentEvent validateAndCancelEvent(Payment payment, CreditEntry creditEntry, List<CreditHistory> creditHistories, List<String> failureMessages, DomainEventPublisher<PaymentCancelledEvent> paymentCancelledEventDomainEventPublisher, DomainEventPublisher<PaymentFailedEvent> paymentFailedEventDomainEventPublisher) {
+    public PaymentEvent validateAndCancelPayment(Payment payment, CreditEntry creditEntry, List<CreditHistory> creditHistories, List<String> failureMessages, DomainEventPublisher<PaymentCancelledEvent> paymentCancelledEventDomainEventPublisher, DomainEventPublisher<PaymentFailedEvent> paymentFailedEventDomainEventPublisher) {
         payment.validatePayment(failureMessages);
         addCreditEntry(payment, creditEntry);
         updateCreditHistory(payment, creditHistories, TransactionType.CREDIT);
@@ -91,7 +91,7 @@ public class PaymentDomainServiceImpl implements PaymentDomainService {
             failureMessages.add("Customer with id " + creditEntry.getCustomerId().getValue() + " doesn't have enough credit according to credit history");
         }
 
-        if (creditEntry.getTotalCreditAmount().equals(totalCreditHistory.subtract(totalDebitHistory))) {
+        if (!creditEntry.getTotalCreditAmount().equals(totalCreditHistory.subtract(totalDebitHistory))) {
             log.error("Credit history total is not equal to current credit for customer id {}", creditEntry.getCustomerId().getValue());
             failureMessages.add("Credit history total is not equal to current credit for customer with id " + creditEntry.getCustomerId().getValue());
         }

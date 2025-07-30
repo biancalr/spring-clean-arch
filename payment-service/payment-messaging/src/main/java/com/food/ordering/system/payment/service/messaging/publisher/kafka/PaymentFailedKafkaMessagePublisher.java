@@ -32,7 +32,7 @@ public class PaymentFailedKafkaMessagePublisher implements PaymentFailedMessageP
         log.info("Received PaymentFailedEvent for order id {}", orderId);
         try {
             final var paymentResponseAvroModel =
-                    paymentMessagingDataMapper.paymentFailedToPaymentResponseAvroModel(domainEvent);
+                    paymentMessagingDataMapper.paymentFailedEventToPaymentResponseAvroModel(domainEvent);
             kafkaProducer.send(
                     paymentServiceConfigData.getPaymentResponseTopicName(),
                     orderId, paymentResponseAvroModel,

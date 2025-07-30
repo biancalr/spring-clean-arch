@@ -32,7 +32,7 @@ public class PaymentCancelledKafkaMessagePublisher implements PaymentCancelledMe
         log.info("Received PaymentCancelledEvent for order id {}", orderId);
         try {
             final var paymentResponseAvroModel =
-                    paymentMessagingDataMapper.paymentCancelledToPaymentAvroModel(domainEvent);
+                    paymentMessagingDataMapper.paymentCancelledEventToPaymentResponseAvroModel(domainEvent);
             kafkaProducer.send(
                     paymentServiceConfigData.getPaymentResponseTopicName(),
                     orderId, paymentResponseAvroModel,

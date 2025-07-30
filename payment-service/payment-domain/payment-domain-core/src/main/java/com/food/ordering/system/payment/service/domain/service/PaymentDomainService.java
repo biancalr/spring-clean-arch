@@ -20,11 +20,11 @@ public interface PaymentDomainService {
                                             DomainEventPublisher<PaymentCompletedEvent> paymentCompletedEventDomainEventPublisher,
                                             DomainEventPublisher<PaymentFailedEvent> paymentFailedEventDomainEventPublisher);
 
-    PaymentEvent validateAndCancelEvent(Payment payment,
-                                        CreditEntry creditEntry,
-                                        List<CreditHistory> creditHistories,
-                                        List<String> failureMessages,
-                                        DomainEventPublisher<PaymentCancelledEvent> paymentCancelledEventDomainEventPublisher,
-                                        DomainEventPublisher<PaymentFailedEvent> paymentFailedEventDomainEventPublisher);
+    PaymentEvent validateAndCancelPayment(Payment payment,
+                                          CreditEntry creditEntry,
+                                          List<CreditHistory> creditHistories,
+                                          List<String> failureMessages,
+                                          DomainEventPublisher<PaymentCancelledEvent> paymentCancelledEventDomainEventPublisher,
+                                          DomainEventPublisher<PaymentFailedEvent> paymentFailedEventDomainEventPublisher);
 
 }

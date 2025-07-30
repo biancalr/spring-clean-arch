@@ -1,7 +1,7 @@
 {
     "namespace": "com.food.ordering.system.kafka.order.avro.model",
     "type": "record",
-    "name": "RestaurantApprovalRequestAvroModel",
+    "name": "RestaurantApprovalResponseAvroModel",
     "fields": [
         {
             "name": "id",
@@ -32,41 +32,27 @@
             }
         },
         {
-            "name": "restaurantOrderStatus",
-            "type": {
-                  "type": "enum",
-                  "name": "RestaurantOrderStatus",
-                  "symbols": ["PAID"]
-            }
-        },
-        {
-            "name": "products",
-            "type": {
-                "type": "array",
-                "items":{
-                  "name":"Product",
-                  "type":"record",
-                  "fields":[
-                    {"name":"id", "type": "string", "logicalType": "uuid"},
-                    {"name":"quantity", "type": "int"}
-                   ]
-               }
-            }
-        },
-        {
-            "name": "price",
-            "type": {
-                "type": "bytes",
-                "logicalType": "decimal",
-                "precision": 10,
-                "scale": 2
-            }
-        },
-        {
             "name": "createdAt",
             "type": {
                 "type": "long",
                 "logicalType": "timestamp-millis"
+            }
+        },
+        {
+            "name": "orderApprovalStatus",
+            "type": {
+                  "type": "enum",
+                  "name": "OrderApprovalStatus",
+                  "symbols": ["APPROVED", "REJECTED"]
+               }
+        },
+        {
+            "name": "failureMessages",
+            "type": {
+                "type": "array",
+                "items":{
+                  "type":"string"
+               }
             }
         }
     ]

@@ -15,9 +15,9 @@ import java.util.UUID;
 @Component
 public class PaymentMessagingDataMapper {
 
-    public PaymentResponseAvroModel paymentCompletedEventToPaymentResponseAvroModel
-            (PaymentCompletedEvent paymentCompletedEvent) {
-        return PaymentResponseAvroModel.builder()
+    public PaymentResponseAvroModel
+    paymentCompletedEventToPaymentResponseAvroModel(PaymentCompletedEvent paymentCompletedEvent) {
+        return PaymentResponseAvroModel.newBuilder()
                 .setId(UUID.randomUUID().toString())
                 .setSagaId("")
                 .setPaymentId(paymentCompletedEvent.getPayment().getId().getValue().toString())
@@ -30,9 +30,9 @@ public class PaymentMessagingDataMapper {
                 .build();
     }
 
-    public PaymentResponseAvroModel paymentCancelledToPaymentAvroModel
-            (PaymentCancelledEvent paymentCancelledEvent) {
-        return PaymentResponseAvroModel.builder()
+    public PaymentResponseAvroModel
+    paymentCancelledEventToPaymentResponseAvroModel(PaymentCancelledEvent paymentCancelledEvent) {
+        return PaymentResponseAvroModel.newBuilder()
                 .setId(UUID.randomUUID().toString())
                 .setSagaId("")
                 .setPaymentId(paymentCancelledEvent.getPayment().getId().getValue().toString())
@@ -45,9 +45,9 @@ public class PaymentMessagingDataMapper {
                 .build();
     }
 
-    public PaymentResponseAvroModel paymentFailedToPaymentResponseAvroModel
-            (PaymentFailedEvent paymentFailedEvent) {
-        return PaymentResponseAvroModel.builder()
+    public PaymentResponseAvroModel
+    paymentFailedEventToPaymentResponseAvroModel(PaymentFailedEvent paymentFailedEvent) {
+        return PaymentResponseAvroModel.newBuilder()
                 .setId(UUID.randomUUID().toString())
                 .setSagaId("")
                 .setPaymentId(paymentFailedEvent.getPayment().getId().getValue().toString())
@@ -60,8 +60,7 @@ public class PaymentMessagingDataMapper {
                 .build();
     }
 
-    public PaymentRequest paymentRequestAvroModelToPaymentRequest
-            (PaymentRequestAvroModel paymentRequestAvroModel) {
+    public PaymentRequest paymentRequestAvroModelToPaymentRequest(PaymentRequestAvroModel paymentRequestAvroModel) {
         return PaymentRequest.builder()
                 .id(paymentRequestAvroModel.getId())
                 .sagaId(paymentRequestAvroModel.getSagaId())
