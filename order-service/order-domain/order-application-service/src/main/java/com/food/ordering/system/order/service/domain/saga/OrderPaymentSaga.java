@@ -4,7 +4,6 @@ import com.food.ordering.system.domain.event.EmptyEvent;
 import com.food.ordering.system.order.service.domain.dto.message.PaymentResponse;
 import com.food.ordering.system.order.service.domain.entity.Order;
 import com.food.ordering.system.order.service.domain.event.OrderPaidEvent;
-import com.food.ordering.system.order.service.domain.port.output.message.publisher.restaurant.OrderPaidRestaurantRequestMessagePublisher;
 import com.food.ordering.system.order.service.domain.port.output.repository.OrderRepository;
 import com.food.ordering.system.order.service.domain.service.OrderDomainService;
 import com.food.ordering.system.saga.SagaStep;
