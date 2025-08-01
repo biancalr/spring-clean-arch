@@ -28,15 +28,17 @@ public class OrderCreateHelper {
     private final CustomerRepository customerRepository;
     private final RestaurantRepository restaurantRepository;
     private final OrderDataMapper orderDataMapper;
-    private final OrderCreatedPaymentRequestMessagePublisher orderCreatedEventDomainEventPublisher;
 
-    public OrderCreateHelper(OrderDomainService orderDomainService, OrderRepository orderRepository, CustomerRepository customerRepository, RestaurantRepository restaurantRepository, OrderDataMapper orderDataMapper, OrderCreatedPaymentRequestMessagePublisher orderCreatedEventDomainEventPublisher) {
+    public OrderCreateHelper(OrderDomainService orderDomainService,
+                             OrderRepository orderRepository,
+                             CustomerRepository customerRepository,
+                             RestaurantRepository restaurantRepository,
+                             OrderDataMapper orderDataMapper) {
         this.orderDomainService = orderDomainService;
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
         this.restaurantRepository = restaurantRepository;
         this.orderDataMapper = orderDataMapper;
-        this.orderCreatedEventDomainEventPublisher = orderCreatedEventDomainEventPublisher;
     }
 
     @Transactional
@@ -44,7 +46,7 @@ public class OrderCreateHelper {
         checkCustomer(createOrderCommand.getCustomerId());
         final var restaurant = checkRestaurant(createOrderCommand);
         final var order = orderDataMapper.createOrderCommandToOrder(createOrderCommand);
-        final var orderCreatedEvent = orderDomainService.validateAndInitiate(order, restaurant, orderCreatedEventDomainEventPublisher);
+        final var orderCreatedEvent = orderDomainService.validateAndInitiate(order, restaurant);
         saveOrder(order);
         log.info("Order is created with id: {}", orderCreatedEvent.getOrder().getId().getValue());
         return orderCreatedEvent;

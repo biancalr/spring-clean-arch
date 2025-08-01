@@ -33,7 +33,7 @@ public class OrderSagaRepositoryHelper {
         orderRepository.save(order);
     }
 
-    SagaStatus orderStatusToSagaStatus(OrderStatus orderStatus) {
+    public SagaStatus orderStatusToSagaStatus(OrderStatus orderStatus) {
         switch (orderStatus) {
             case PAID -> {
                 return SagaStatus.PROCESSING;
