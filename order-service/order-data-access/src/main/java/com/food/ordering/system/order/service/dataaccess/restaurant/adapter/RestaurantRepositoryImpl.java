@@ -7,6 +7,7 @@ import com.food.ordering.system.order.service.domain.entity.Restaurant;
 import com.food.ordering.system.order.service.domain.port.output.repository.RestaurantRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -26,9 +27,10 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     @Override
     public Optional<Restaurant> findRestaurantinformation(Restaurant restaurant) {
         List<UUID> restaurantProdcts =
-                restaurantDataAccessMapper.restaurantToRestaurantProducts(restaurant);
+                Collections.unmodifiableList(restaurantDataAccessMapper.restaurantToRestaurantProducts(restaurant));
         Optional<List<RestaurantEntity>> restaurantEntities = restaurantJpaRepository
-                .findByRestaurantIdAndProductIdIn(restaurant.getId().getValue(), restaurantProdcts);
+                .findByRestaurantIdAndProductIdIn(restaurant.getId().getValue(),
+                        restaurantProdcts);
         return restaurantEntities.map(restaurantDataAccessMapper::restaurantEntityToRestaurant);
     }
 }

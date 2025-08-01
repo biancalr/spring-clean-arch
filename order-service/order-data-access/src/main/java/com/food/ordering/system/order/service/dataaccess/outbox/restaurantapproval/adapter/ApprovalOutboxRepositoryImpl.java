@@ -37,7 +37,7 @@ public class ApprovalOutboxRepositoryImpl implements ApprovalOutboxRepository {
                                                                                              OutboxStatus outboxStatus,
                                                                                              SagaStatus... sagaStatus) {
         return Optional.of(Collections.unmodifiableList(approvalOutboxJpaRepository.findByTypeAndOutboxStatusAndSagaStatusIn(sagaType, outboxStatus,
-                        Arrays.asList(sagaStatus))
+                        Collections.unmodifiableList(Arrays.asList(sagaStatus)))
                 .orElseThrow(() -> new ApprovalOutboxNotFoundException("Approval outbox object " +
                         "could be found for saga type " + sagaType))
                 .stream()
@@ -50,7 +50,8 @@ public class ApprovalOutboxRepositoryImpl implements ApprovalOutboxRepository {
                                                                                  UUID sagaId,
                                                                                  SagaStatus... sagaStatus) {
         return approvalOutboxJpaRepository
-                .findByTypeAndSagaIdAndSagaStatusIn(type, sagaId,
+                .findByTypeAndSagaIdAndSagaStatusIn(type,
+                        sagaId,
                         Arrays.asList(sagaStatus))
                 .map(approvalOutboxDataAccessMapper::approvalOutboxEntityToOrderApprovalOutboxMessage);
 
@@ -58,7 +59,8 @@ public class ApprovalOutboxRepositoryImpl implements ApprovalOutboxRepository {
 
     @Override
     public void deleteByTypeAndOutboxStatusAndSagaStatus(String type, OutboxStatus outboxStatus, SagaStatus... sagaStatus) {
-        approvalOutboxJpaRepository.deleteByTypeAndOutboxStatusAndSagaStatusIn(type, outboxStatus,
-                Arrays.asList(sagaStatus));
+        approvalOutboxJpaRepository.deleteByTypeAndOutboxStatusAndSagaStatusIn(type,
+                outboxStatus,
+                Collections.unmodifiableList(Arrays.asList(sagaStatus)));
     }
 }

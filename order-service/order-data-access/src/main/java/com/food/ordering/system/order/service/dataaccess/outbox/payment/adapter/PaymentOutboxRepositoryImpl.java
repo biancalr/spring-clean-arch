@@ -9,10 +9,7 @@ import com.food.ordering.system.outbox.OutboxStatus;
 import com.food.ordering.system.saga.SagaStatus;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -41,7 +38,7 @@ public class PaymentOutboxRepositoryImpl implements PaymentOutboxRepository {
                                                                                             SagaStatus... sagaStatus) {
         return Optional.of(paymentOutboxJpaRepository.findByTypeAndOutboxStatusAndSagaStatusIn(sagaType,
                         outboxStatus,
-                        Arrays.asList(sagaStatus))
+                        Collections.unmodifiableList(Arrays.asList(sagaStatus)))
                 .orElseThrow(() -> new PaymentOutboxNotFoundException("Payment outbox object " +
                         "could not be found for saga type " + sagaType))
                 .stream()
@@ -54,13 +51,16 @@ public class PaymentOutboxRepositoryImpl implements PaymentOutboxRepository {
                                                                                 UUID sagaId,
                                                                                 SagaStatus... sagaStatus) {
         return paymentOutboxJpaRepository
-                .findByTypeAndSagaIdAndSagaStatusIn(type, sagaId, Arrays.asList(sagaStatus))
+                .findByTypeAndSagaIdAndSagaStatusIn(type,
+                        sagaId,
+                        Collections.unmodifiableList(Arrays.asList(sagaStatus)))
                 .map(paymentOutboxDataAccessMapper::paymentOutboxEntityToOrderPaymentOutboxMessage);
     }
 
     @Override
     public void deleteByTypeAndOutboxStatusAndSagaStatus(String type, OutboxStatus outboxStatus, SagaStatus... sagaStatus) {
-        paymentOutboxJpaRepository.deleteByTypeAndOutboxStatusAndSagaStatusIn(type, outboxStatus,
-                Arrays.asList(sagaStatus));
+        paymentOutboxJpaRepository.deleteByTypeAndOutboxStatusAndSagaStatusIn(type,
+                outboxStatus,
+                Collections.unmodifiableList(Arrays.asList(sagaStatus)));
     }
 }
