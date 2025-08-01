@@ -18,6 +18,7 @@ import java.util.UUID;
 @Table(name = "payment_outbox")
 @Entity
 public class PaymentOutboxEntity {
+
     @Id
     private UUID id;
     private UUID sagaId;

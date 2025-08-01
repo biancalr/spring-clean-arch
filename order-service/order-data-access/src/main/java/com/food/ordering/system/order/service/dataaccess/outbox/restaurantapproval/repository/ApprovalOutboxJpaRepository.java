@@ -1,4 +1,5 @@
 package com.food.ordering.system.order.service.dataaccess.outbox.restaurantapproval.repository;
+
 import com.food.ordering.system.order.service.dataaccess.outbox.restaurantapproval.entity.ApprovalOutboxEntity;
 import com.food.ordering.system.outbox.OutboxStatus;
 import com.food.ordering.system.saga.SagaStatus;
@@ -9,9 +10,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-
 @Repository
 public interface ApprovalOutboxJpaRepository extends JpaRepository<ApprovalOutboxEntity, UUID> {
+
 
     Optional<List<ApprovalOutboxEntity>> findByTypeAndOutboxStatusAndSagaStatusIn(String type,
                                                                                   OutboxStatus outboxStatus,
@@ -26,3 +27,4 @@ public interface ApprovalOutboxJpaRepository extends JpaRepository<ApprovalOutbo
                                                     List<SagaStatus> sagaStatus);
 
 }
+
