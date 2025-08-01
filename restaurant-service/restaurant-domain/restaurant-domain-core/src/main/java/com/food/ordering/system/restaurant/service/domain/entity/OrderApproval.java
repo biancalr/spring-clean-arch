@@ -30,7 +30,7 @@ public class OrderApproval extends BaseEntity<OrderApprovalId> {
         return orderId;
     }
 
-    public OrderApprovalStatus getOrderApprovalStatus() {
+    public OrderApprovalStatus getApprovalStatus() {
         return orderApprovalStatus;
     }
 

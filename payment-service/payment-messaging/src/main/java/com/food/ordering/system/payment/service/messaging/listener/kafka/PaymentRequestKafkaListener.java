@@ -14,7 +14,6 @@ import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.sql.SQLException;
 import java.util.List;
