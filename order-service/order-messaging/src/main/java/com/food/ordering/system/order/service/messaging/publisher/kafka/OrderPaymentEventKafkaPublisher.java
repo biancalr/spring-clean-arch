@@ -1,12 +1,9 @@
 package com.food.ordering.system.order.service.messaging.publisher.kafka;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.food.ordering.system.kafka.order.avro.model.PaymentRequestAvroModel;
 import com.food.ordering.system.kafka.producer.service.KafkaProducer;
 import com.food.ordering.system.kafka.producer.service.helper.KafkaMessageHelper;
 import com.food.ordering.system.order.service.domain.config.OrderServiceConfigData;
-import com.food.ordering.system.order.service.domain.exception.OrderDomainException;
 import com.food.ordering.system.order.service.domain.outbox.model.payment.OrderPaymentEventPayload;
 import com.food.ordering.system.order.service.domain.outbox.model.payment.OrderPaymentOutboxMessage;
 import com.food.ordering.system.order.service.domain.port.output.message.publisher.payment.PaymentRequestMessagePublisher;
@@ -19,31 +16,30 @@ import java.util.function.BiConsumer;
 
 @Slf4j
 @Component
-public class OrderPaimentEventKafkaPublisher implements PaymentRequestMessagePublisher {
+public class OrderPaymentEventKafkaPublisher implements PaymentRequestMessagePublisher {
 
     private final OrderMessagingDataMapper orderMessagingDataMapper;
     private final KafkaProducer<String, PaymentRequestAvroModel> kafkaProducer;
     private final OrderServiceConfigData orderServiceConfigData;
     private final KafkaMessageHelper kafkaMessageHelper;
-    private final ObjectMapper objectMapper;
 
-    public OrderPaimentEventKafkaPublisher(OrderMessagingDataMapper orderMessagingDataMapper,
+    public OrderPaymentEventKafkaPublisher(OrderMessagingDataMapper orderMessagingDataMapper,
                                            KafkaProducer<String, PaymentRequestAvroModel> kafkaProducer,
                                            OrderServiceConfigData orderServiceConfigData,
-                                           KafkaMessageHelper kafkaMessageHelper,
-                                           ObjectMapper objectMapper) {
+                                           KafkaMessageHelper kafkaMessageHelper) {
         this.orderMessagingDataMapper = orderMessagingDataMapper;
         this.kafkaProducer = kafkaProducer;
         this.orderServiceConfigData = orderServiceConfigData;
         this.kafkaMessageHelper = kafkaMessageHelper;
-        this.objectMapper = objectMapper;
     }
 
     @Override
     public void publish(OrderPaymentOutboxMessage orderPaymentOutboxMessage,
                         BiConsumer<OrderPaymentOutboxMessage, OutboxStatus> outboxCallback) {
         final var orderPaymentEventPayload =
-                getOrderPaymentEventPayload(orderPaymentOutboxMessage.getPayload());
+               kafkaMessageHelper.getOrderEventPayload(
+                       orderPaymentOutboxMessage.getPayload(),
+                       OrderPaymentEventPayload.class);
         final var sagaId = orderPaymentOutboxMessage.getSagaId().toString();
         log.info("Received OrderPaymentOutboxMessage for order id {} and saga id {}",
                 orderPaymentEventPayload.getOrderId(),
@@ -77,13 +73,4 @@ public class OrderPaimentEventKafkaPublisher implements PaymentRequestMessagePub
 
     }
 
-    private OrderPaymentEventPayload getOrderPaymentEventPayload(String payload) {
-        try {
-            return objectMapper.readValue(payload,
-                    OrderPaymentEventPayload.class);
-        } catch (JsonProcessingException e) {
-            log.error("Could not read OrderPaymentEventPayload object", e);
-            throw new OrderDomainException("Could not read OrderPaymentEventPayload object", e);
-        }
-    }
 }
