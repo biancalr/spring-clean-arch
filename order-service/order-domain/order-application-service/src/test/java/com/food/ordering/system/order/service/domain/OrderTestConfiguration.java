@@ -1,10 +1,11 @@
 package com.food.ordering.system.order.service.domain;
 
-import com.food.ordering.system.order.service.domain.port.output.repository.CustomerRepository;
-import com.food.ordering.system.order.service.domain.port.output.repository.OrderRepository;
-import com.food.ordering.system.order.service.domain.port.output.repository.RestaurantRepository;
+import com.food.ordering.system.order.service.domain.port.output.message.publisher.payment.PaymentRequestMessagePublisher;
+import com.food.ordering.system.order.service.domain.port.output.message.publisher.restaurant.RestaurantApprovalRequestMessagePublisher;
+import com.food.ordering.system.order.service.domain.port.output.repository.*;
 import com.food.ordering.system.order.service.domain.service.OrderDomainService;
 import com.food.ordering.system.order.service.domain.service.OrderDomainServiceImpl;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,18 +14,13 @@ import org.springframework.context.annotation.Bean;
 public class OrderTestConfiguration {
 
     @Bean
-    public OrderCreatedPaymentRequestMessagePublisher orderCreatedPaymentRequestMessagePublisher() {
-        return Mockito.mock(OrderCreatedPaymentRequestMessagePublisher.class);
+    public PaymentRequestMessagePublisher paymentRequestMessagePublisher() {
+        return Mockito.mock(PaymentRequestMessagePublisher.class);
     }
 
     @Bean
-    public OrderCancelledPaymentRequestMessagePublisher orderCancelledPaymentRequestMessagePublisher() {
-        return Mockito.mock(OrderCancelledPaymentRequestMessagePublisher.class);
-    }
-
-    @Bean
-    public OrderPaidRestaurantRequestMessagePublisher orderPaidRestaurantRequestMessagePublisher() {
-        return Mockito.mock(OrderPaidRestaurantRequestMessagePublisher.class);
+    public RestaurantApprovalRequestMessagePublisher restaurantApprovalRequestMessagePublisher() {
+        return Mockito.mock(RestaurantApprovalRequestMessagePublisher.class);
     }
 
     @Bean
@@ -40,6 +36,16 @@ public class OrderTestConfiguration {
     @Bean
     public RestaurantRepository restaurantRepository() {
         return Mockito.mock(RestaurantRepository.class);
+    }
+
+    @Bean
+    public PaymentOutboxRepository paymentOutboxRepository() {
+        return Mockito.mock(PaymentOutboxRepository.class);
+    }
+
+    @Bean
+    public ApprovalOutboxRepository approvalOutboxRepository() {
+        return Mockito.mock(ApprovalOutboxRepository.class);
     }
 
     @Bean

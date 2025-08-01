@@ -7,7 +7,7 @@ import java.time.ZonedDateTime;
 
 public class OrderCreatedEvent extends OrderEvent {
 
-    public OrderCreatedEvent(Order order, ZonedDateTime createdAt, DomainEventPublisher<OrderCreatedEvent> orderCreatedEventDomainEventPublisher) {
+    public OrderCreatedEvent(Order order, ZonedDateTime createdAt) {
         super(order, createdAt);
     }
 }
