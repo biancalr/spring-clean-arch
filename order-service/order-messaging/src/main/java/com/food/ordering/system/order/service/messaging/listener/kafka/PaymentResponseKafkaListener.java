@@ -40,28 +40,30 @@ public class PaymentResponseKafkaListener implements KafkaConsumer<PaymentRespon
                 partitions.toString(),
                 offsets.toString());
 
-        messages.forEach(paymentResponseAvroModel -> {
-            try {
-                switch (paymentResponseAvroModel.getPaymentStatus()) {
-                    case COMPLETED -> {
-                        log.info("Processing successful payment for order id: {}", paymentResponseAvroModel.getOrderId());
-                        paymentResponseMessageListener.paymentCompleted(orderMessagingDataMapper
-                                .paymentResponseAvroModelToPaymentResponse(paymentResponseAvroModel));
-                    }
-                    case CANCELLED, FAILED -> {
-                        log.info("Processing unsuccessful payment for order id: {}", paymentResponseAvroModel.getOrderId());
-                        paymentResponseMessageListener.paymentCancelled(orderMessagingDataMapper
-                                .paymentResponseAvroModelToPaymentResponse(paymentResponseAvroModel));
-                    }
+        messages.forEach(this::fireEvent);
+    }
+
+    private void fireEvent(PaymentResponseAvroModel paymentResponseAvroModel) {
+        try {
+            switch (paymentResponseAvroModel.getPaymentStatus()) {
+                case COMPLETED -> {
+                    log.info("Processing successful payment for order id: {}", paymentResponseAvroModel.getOrderId());
+                    paymentResponseMessageListener.paymentCompleted(orderMessagingDataMapper
+                            .paymentResponseAvroModelToPaymentResponse(paymentResponseAvroModel));
                 }
-            } catch (OptimisticLockingFailureException e) {
-                //NO-OP for optimistic lock. This means another thread finished the work, do not throw error to prevent reading the data from kafka again!
-                log.error("Caught optimistic locking exception in PaymentResponseKafkaListener for order id {}",
-                        paymentResponseAvroModel.getOrderId());
-            } catch (OrderNotFoundException e) {
-                //NO-OP for OrderNotFoundException
-                log.error("No order found for order id: {}", paymentResponseAvroModel.getOrderId());
+                case CANCELLED, FAILED -> {
+                    log.info("Processing unsuccessful payment for order id: {}", paymentResponseAvroModel.getOrderId());
+                    paymentResponseMessageListener.paymentCancelled(orderMessagingDataMapper
+                            .paymentResponseAvroModelToPaymentResponse(paymentResponseAvroModel));
+                }
             }
-        });
+        } catch (OptimisticLockingFailureException e) {
+            //NO-OP for optimistic lock. This means another thread finished the work, do not throw error to prevent reading the data from kafka again!
+            log.error("Caught optimistic locking exception in PaymentResponseKafkaListener for order id {}",
+                    paymentResponseAvroModel.getOrderId());
+        } catch (OrderNotFoundException e) {
+            //NO-OP for OrderNotFoundException
+            log.error("No order found for order id: {}", paymentResponseAvroModel.getOrderId());
+        }
     }
 }

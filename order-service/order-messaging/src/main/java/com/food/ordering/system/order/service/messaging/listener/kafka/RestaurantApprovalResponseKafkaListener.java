@@ -44,33 +44,35 @@ public class RestaurantApprovalResponseKafkaListener implements KafkaConsumer<Re
                 partitions.toString(),
                 offsets.toString());
 
-        messages.forEach(restaurantApprovalResponseAvroModel -> {
-            try {
-                switch (restaurantApprovalResponseAvroModel.getOrderApprovalStatus()) {
-                    case APPROVED -> {
-                        log.info("Processing approved order for order id: {}",
-                                restaurantApprovalResponseAvroModel.getOrderId());
-                        restaurantApprovalResponseMessageListener.orderApproved(orderMessagingDataMapper
-                                .approvalResponseAvroModelToApprovalResponse(restaurantApprovalResponseAvroModel));
-                    }
-                    case REJECTED -> {
-                        log.info("Processing rejected order for order id: {}, with failure messages: {}",
-                                restaurantApprovalResponseAvroModel.getOrderId(),
-                                String.join(FAILURE_MESSAGE_DELIMITER,
-                                        restaurantApprovalResponseAvroModel.getFailureMessages()));
-                        restaurantApprovalResponseMessageListener.orderRejected(orderMessagingDataMapper
-                                .approvalResponseAvroModelToApprovalResponse(restaurantApprovalResponseAvroModel));
-                    }
-                }
-            } catch (OptimisticLockingFailureException e) {
-                //NO-OP for optimistic lock. This means another thread finished the work, do not throw error to prevent reading the data from kafka again!
-                log.error("Caught optimistic locking exception in RestaurantApprovalResponseKafkaListener for order id {}",
-                        restaurantApprovalResponseAvroModel.getOrderId());
-            } catch (OrderNotFoundException e) {
-                //NO-OP for OrderNotFoundException
-                log.error("No order found for order id: {}", restaurantApprovalResponseAvroModel.getOrderId());
-            }
-        });
+        messages.forEach(this::fireEvent);
 
+    }
+
+    private void fireEvent(RestaurantApprovalResponseAvroModel restaurantApprovalResponseAvroModel) {
+        try {
+            switch (restaurantApprovalResponseAvroModel.getOrderApprovalStatus()) {
+                case APPROVED -> {
+                    log.info("Processing approved order for order id: {}",
+                            restaurantApprovalResponseAvroModel.getOrderId());
+                    restaurantApprovalResponseMessageListener.orderApproved(orderMessagingDataMapper
+                            .approvalResponseAvroModelToApprovalResponse(restaurantApprovalResponseAvroModel));
+                }
+                case REJECTED -> {
+                    log.info("Processing rejected order for order id: {}, with failure messages: {}",
+                            restaurantApprovalResponseAvroModel.getOrderId(),
+                            String.join(FAILURE_MESSAGE_DELIMITER,
+                                    restaurantApprovalResponseAvroModel.getFailureMessages()));
+                    restaurantApprovalResponseMessageListener.orderRejected(orderMessagingDataMapper
+                            .approvalResponseAvroModelToApprovalResponse(restaurantApprovalResponseAvroModel));
+                }
+            }
+        } catch (OptimisticLockingFailureException e) {
+            //NO-OP for optimistic lock. This means another thread finished the work, do not throw error to prevent reading the data from kafka again!
+            log.error("Caught optimistic locking exception in RestaurantApprovalResponseKafkaListener for order id {}",
+                    restaurantApprovalResponseAvroModel.getOrderId());
+        } catch (OrderNotFoundException e) {
+            //NO-OP for OrderNotFoundException
+            log.error("No order found for order id: {}", restaurantApprovalResponseAvroModel.getOrderId());
+        }
     }
 }
