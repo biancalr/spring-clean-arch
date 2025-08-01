@@ -5,7 +5,6 @@ import com.food.ordering.system.order.service.domain.port.output.message.publish
 import com.food.ordering.system.order.service.domain.port.output.repository.*;
 import com.food.ordering.system.order.service.domain.service.OrderDomainService;
 import com.food.ordering.system.order.service.domain.service.OrderDomainServiceImpl;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
