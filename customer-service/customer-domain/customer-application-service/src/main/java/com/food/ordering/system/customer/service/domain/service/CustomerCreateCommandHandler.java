@@ -29,13 +29,13 @@ public class CustomerCreateCommandHandler {
 
     @Transactional
     public CustomerCreatedEvent createCustomer(CreateCustomerCommand createCustomerCommand) {
-        Customer customer = customerDataMapper.createCustomerCommandToCustomer(createCustomerCommand);
-        if (customerRepository.customerExistsByUsername(customer.getUsername())) {
+        if (customerRepository.customerExistsByUsername(createCustomerCommand.getUsername())) {
             log.error("Username {} already in use", createCustomerCommand.getUsername());
             throw new CustomerDomainException("Username " +
                     createCustomerCommand.getCustomerId() +
                     " already in use");
         }
+        Customer customer = customerDataMapper.createCustomerCommandToCustomer(createCustomerCommand);
         CustomerCreatedEvent customerCreatedEvent = customerDomainService.validateAndInitiateCustomer(customer);
         Customer savedCustomer = customerRepository.createCustomer(customer);
         if (savedCustomer == null) {

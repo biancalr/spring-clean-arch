@@ -1,4 +1,4 @@
-package com.food.ordering.system.customer.service.mapper;
+package com.food.ordering.system.customer.service.messaging.mapper;
 
 import com.food.ordering.system.customer.service.domain.event.CustomerCreatedEvent;
 import com.food.ordering.system.kafka.order.avro.model.CustomerAvroModel;

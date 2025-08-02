@@ -1,9 +1,9 @@
-package com.food.ordering.system.customer.service.publisher.kafka;
+package com.food.ordering.system.customer.service.messaging.publisher.kafka;
 
 import com.food.ordering.system.customer.service.domain.config.CustomerServiceConfigData;
 import com.food.ordering.system.customer.service.domain.event.CustomerCreatedEvent;
 import com.food.ordering.system.customer.service.domain.ports.output.message.publisher.CustomerMessagePublisher;
-import com.food.ordering.system.customer.service.mapper.CustomerMessagingDataMapper;
+import com.food.ordering.system.customer.service.messaging.mapper.CustomerMessagingDataMapper;
 import com.food.ordering.system.kafka.order.avro.model.CustomerAvroModel;
 import com.food.ordering.system.kafka.producer.service.KafkaProducer;
 import lombok.extern.slf4j.Slf4j;
@@ -34,9 +34,13 @@ public class CustomerCreatedEventKafkaPublisher implements CustomerMessagePublis
             CustomerAvroModel customerAvroModel = customerMessagingDataMapper
                     .paymentResponseAvroModelToPaymentResponse(customerCreatedEvent);
 
-            kafkaProducer.send(customerServiceConfigData.getCustomerTopicName(), customerAvroModel.getId(),
+            kafkaProducer.send(
+                    customerServiceConfigData.getCustomerTopicName(),
+                    customerAvroModel.getId(),
                     customerAvroModel,
-                    getCallback(customerServiceConfigData.getCustomerTopicName(), customerAvroModel));
+                    getCallback(
+                            customerServiceConfigData.getCustomerTopicName(),
+                            customerAvroModel));
 
             log.info("CustomerCreatedEvent sent to kafka for customer id: {}",
                     customerAvroModel.getId());
