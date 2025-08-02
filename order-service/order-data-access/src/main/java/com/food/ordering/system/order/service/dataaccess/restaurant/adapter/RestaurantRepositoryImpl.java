@@ -25,7 +25,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     }
 
     @Override
-    public Optional<Restaurant> findRestaurantinformation(Restaurant restaurant) {
+    public Optional<Restaurant> findRestaurantInformation(Restaurant restaurant) {
         List<UUID> restaurantProdcts =
                 Collections.unmodifiableList(restaurantDataAccessMapper.restaurantToRestaurantProducts(restaurant));
         Optional<List<RestaurantEntity>> restaurantEntities = restaurantJpaRepository

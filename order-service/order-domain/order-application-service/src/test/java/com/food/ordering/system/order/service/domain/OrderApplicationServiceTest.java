@@ -154,7 +154,7 @@ public class OrderApplicationServiceTest {
         order.setId(new OrderId(ORDER_ID));
 
         when(customerRepository.findCustomer(CUSTOMER_ID)).thenReturn(Optional.of(customer));
-        when(restaurantRepository.findRestaurantinformation(orderDataMapper.createOrderCommandToRestaurant(createOrderCommand)))
+        when(restaurantRepository.findRestaurantInformation(orderDataMapper.createOrderCommandToRestaurant(createOrderCommand)))
                 .thenReturn(Optional.of(restaurantResponse));
         when(orderRepository.save(any(Order.class))).thenReturn(order);
         when(paymentOutboxRepository.save(any(OrderPaymentOutboxMessage.class)))
@@ -191,7 +191,7 @@ public class OrderApplicationServiceTest {
                         new Product(new ProductId(PRODUCT_ID_2), "product-2", new Money(new BigDecimal("50.00")))))
                 .active(false)
                 .build();
-        when(restaurantRepository.findRestaurantinformation(orderDataMapper.createOrderCommandToRestaurant(createOrderCommand)))
+        when(restaurantRepository.findRestaurantInformation(orderDataMapper.createOrderCommandToRestaurant(createOrderCommand)))
                 .thenReturn(Optional.of(restaurantResponse));
         OrderDomainException orderDomainException =
                 assertThrows(OrderDomainException.class, () -> orderApplicationService.createOrder(createOrderCommand));

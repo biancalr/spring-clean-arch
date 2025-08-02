@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface RestaurantRepository {
 
-    Optional<Restaurant> findRestaurantinformation(Restaurant restaurant);
+    Optional<Restaurant> findRestaurantInformation(Restaurant restaurant);
 }
