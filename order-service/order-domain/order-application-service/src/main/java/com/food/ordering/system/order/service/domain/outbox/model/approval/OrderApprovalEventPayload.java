@@ -1,5 +1,6 @@
 package com.food.ordering.system.order.service.domain.outbox.model.approval;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +12,6 @@ import java.util.List;
 
 @Getter
 @Builder
-@AllArgsConstructor
 public class OrderApprovalEventPayload {
     @JsonProperty
     private String orderId;
@@ -25,4 +25,20 @@ public class OrderApprovalEventPayload {
     private String restaurantOrderStatus;
     @JsonProperty
     private List<OrderApprovalEventProduct> products;
+
+    @JsonCreator
+    public OrderApprovalEventPayload(
+            @JsonProperty("orderId") String orderId,
+            @JsonProperty("restaurantId") String restaurantId,
+            @JsonProperty("price") BigDecimal price,
+            @JsonProperty("createdAt") ZonedDateTime createdAt,
+            @JsonProperty("restaurantOrderStatus") String restaurantOrderStatus,
+            @JsonProperty("products") List<OrderApprovalEventProduct> products) {
+        this.orderId = orderId;
+        this.restaurantId = restaurantId;
+        this.price = price;
+        this.createdAt = createdAt;
+        this.restaurantOrderStatus = restaurantOrderStatus;
+        this.products = products;
+    }
 }

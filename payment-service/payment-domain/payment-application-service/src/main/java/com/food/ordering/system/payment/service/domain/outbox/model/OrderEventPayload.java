@@ -1,5 +1,6 @@
 package com.food.ordering.system.payment.service.domain.outbox.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +12,6 @@ import java.util.List;
 
 @Getter
 @Builder
-@AllArgsConstructor
 public class OrderEventPayload {
     @JsonProperty
     private String paymentId;
@@ -33,4 +33,22 @@ public class OrderEventPayload {
 
     @JsonProperty
     private List<String> failureMessages;
+
+    @JsonCreator
+    public OrderEventPayload(
+            @JsonProperty("paymentId") String paymentId,
+            @JsonProperty("customerId") String customerId,
+            @JsonProperty("orderId") String orderId,
+            @JsonProperty("price") BigDecimal price,
+            @JsonProperty("createdAt") ZonedDateTime createdAt,
+            @JsonProperty("paymentStatus") String paymentStatus,
+            @JsonProperty("failureMessages") List<String> failureMessages) {
+        this.paymentId = paymentId;
+        this.customerId = customerId;
+        this.orderId = orderId;
+        this.price = price;
+        this.createdAt = createdAt;
+        this.paymentStatus = paymentStatus;
+        this.failureMessages = failureMessages;
+    }
 }

@@ -1,5 +1,7 @@
 package com.food.ordering.system.order.service.domain.dto.create;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Builder
-@AllArgsConstructor
 public class OrderAddress {
 
     @NotBlank
@@ -21,4 +22,14 @@ public class OrderAddress {
     @NotBlank
     @Max(value = 50)
     private final String city;
+
+    @JsonCreator
+    public OrderAddress(
+            @JsonProperty("street") String street,
+            @JsonProperty("postalCode") String postalCode,
+            @JsonProperty("city") String city) {
+        this.street = street;
+        this.postalCode = postalCode;
+        this.city = city;
+    }
 }
