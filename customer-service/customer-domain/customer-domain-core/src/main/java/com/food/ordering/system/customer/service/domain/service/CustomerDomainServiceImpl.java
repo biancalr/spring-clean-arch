@@ -7,13 +7,16 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+import static com.food.ordering.system.domain.constant.DomainConstants.UTC;
+
 @Slf4j
 public class CustomerDomainServiceImpl implements CustomerDomainService {
 
     @Override
-    public CustomerCreatedEvent validateAndInitiateCustomer(Customer customer) {
+    public CustomerCreatedEvent validateAndInitiateCustomer(final Customer customer) {
         customer.validateCustomer(customer);
-        log.info("Customer with id: {} is initiated", customer.getId().getValue());
-        return new CustomerCreatedEvent(customer, ZonedDateTime.now(ZoneId.of("UTC")));
+        customer.initializeCustomer();
+        log.info("Customer processing running for new user with id {}", customer.getId().getValue().toString());
+        return new CustomerCreatedEvent(customer, ZonedDateTime.now(ZoneId.of(UTC)));
     }
 }

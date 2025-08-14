@@ -1,7 +1,7 @@
 package com.food.ordering.system.customer.service.rest;
 
-import com.food.ordering.system.customer.service.domain.create.CreateCustomerCommand;
-import com.food.ordering.system.customer.service.domain.create.CreateCustomerResponse;
+import com.food.ordering.system.customer.service.domain.dto.create.CreateCustomerCommand;
+import com.food.ordering.system.customer.service.domain.dto.create.CreateCustomerResponse;
 import com.food.ordering.system.customer.service.domain.ports.input.service.CustomerApplicationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -23,8 +23,8 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<CreateCustomerResponse> createCustomer(@RequestBody CreateCustomerCommand
-                                                                         createCustomerCommand) {
+    public ResponseEntity<CreateCustomerResponse> createCustomer(
+            @RequestBody CreateCustomerCommand createCustomerCommand) {
         log.info("Creating customer with username: {}", createCustomerCommand.getUsername());
         CreateCustomerResponse response = customerApplicationService.createCustomer(createCustomerCommand);
         return ResponseEntity.ok(response);

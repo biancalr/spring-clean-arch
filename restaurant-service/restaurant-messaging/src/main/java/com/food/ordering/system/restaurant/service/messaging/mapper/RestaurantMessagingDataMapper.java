@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class RestaurantMessagingDataMapper {
+
     public RestaurantApprovalRequest
     restaurantApprovalRequestAvroModelToRestaurantApproval(
             RestaurantApprovalRequestAvroModel restaurantApprovalRequestAvroModel) {

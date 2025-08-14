@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface PaymentOutboxJpaRepository extends JpaRepository<PaymentOutboxEntity, UUID> {
+public interface  PaymentOutboxJpaRepository extends JpaRepository<PaymentOutboxEntity, UUID> {
 
     Optional<List<PaymentOutboxEntity>> findByTypeAndOutboxStatusAndSagaStatusIn(String type,
                                                                                  OutboxStatus outboxStatus,

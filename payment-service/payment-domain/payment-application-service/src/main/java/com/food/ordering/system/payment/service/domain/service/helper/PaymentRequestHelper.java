@@ -58,7 +58,7 @@ public class PaymentRequestHelper {
     @Transactional
     public void persistPayment(PaymentRequest paymentRequest) {
         if (publishIfOutboxMessageProcessedForPayment(paymentRequest,
-                PaymentStatus.CANCELLED)) {
+                PaymentStatus.COMPLETED)) {
             log.info("For order Id {} an outbox message with saga id: {} is already saved to database!",
                     paymentRequest.getOrderId(), paymentRequest.getSagaId());
             return;

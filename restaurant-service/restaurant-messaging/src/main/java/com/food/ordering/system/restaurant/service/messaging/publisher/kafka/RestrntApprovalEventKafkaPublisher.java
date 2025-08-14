@@ -52,7 +52,8 @@ public class RestrntApprovalEventKafkaPublisher implements RestrntApprovalRespon
                     restaurantMessagingDataMapper
                             .orderEventPayloadToRestaurantApprovalResponseAvroModel(sagaId, orderEventPayload);
 
-            kafkaProducer.send(restaurantServiceConfigData.getRestaurantApprovalResponseTopicName(),
+            kafkaProducer.send(
+                    restaurantServiceConfigData.getRestaurantApprovalResponseTopicName(),
                     sagaId,
                     restaurantApprovalResponseAvroModel,
                     kafkaMessageHelper.getKafkaCallback(

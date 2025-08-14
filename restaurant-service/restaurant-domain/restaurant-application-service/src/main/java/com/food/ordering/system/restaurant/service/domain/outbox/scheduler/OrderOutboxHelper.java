@@ -69,18 +69,18 @@ public class OrderOutboxHelper {
     }
 
     @Transactional
-    public void updateOutboxStatus(OrderOutboxMessage orderPaymentOutboxMessage, OutboxStatus outboxStatus) {
-        orderPaymentOutboxMessage.setOutboxStatus(outboxStatus);
-        save(orderPaymentOutboxMessage);
+    public void updateOutboxStatus(OrderOutboxMessage orderOutboxMessage, OutboxStatus outboxStatus) {
+        orderOutboxMessage.setOutboxStatus(outboxStatus);
+        save(orderOutboxMessage);
         log.info("Order outbox table status is updated as: {}", outboxStatus.name());
     }
 
-    private void save(OrderOutboxMessage orderPaymentOutboxMessage) {
-        OrderOutboxMessage response = orderOutboxRepository.save(orderPaymentOutboxMessage);
+    private void save(OrderOutboxMessage orderOutboxMessage) {
+        OrderOutboxMessage response = orderOutboxRepository.save(orderOutboxMessage);
         if (response == null) {
             throw new RestaurantDomainException("Could not save OrderOutboxMessage!");
         }
-        log.info("OrderOutboxMessage saved with id: {}", orderPaymentOutboxMessage.getId());
+        log.info("OrderOutboxMessage saved with id: {}", orderOutboxMessage.getId());
     }
 
     private String createPayload(OrderEventPayload orderEventPayload) {

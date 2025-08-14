@@ -24,10 +24,11 @@ import static com.food.ordering.system.domain.constant.DomainConstants.UTC;
 public class PaymentDomainServiceImpl implements PaymentDomainService {
 
     @Override
-    public PaymentEvent validateAndInitiatePayment(Payment payment,
-                                                   CreditEntry creditEntry,
-                                                   List<CreditHistory> creditHistories,
-                                                   List<String> failureMessages) {
+    public PaymentEvent validateAndInitiatePayment(
+            Payment payment,
+            CreditEntry creditEntry,
+            List<CreditHistory> creditHistories,
+            List<String> failureMessages) {
         payment.validatePayment(failureMessages);
         payment.initializePayment();
         validateCreditEntry(payment, creditEntry, failureMessages);

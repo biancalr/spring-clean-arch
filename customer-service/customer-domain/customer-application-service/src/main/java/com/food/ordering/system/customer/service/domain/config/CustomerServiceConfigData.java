@@ -8,5 +8,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "customer-service")
 public class CustomerServiceConfigData {
-    private String customerTopicName;
+    private String customerRequestTopicName;
 }
