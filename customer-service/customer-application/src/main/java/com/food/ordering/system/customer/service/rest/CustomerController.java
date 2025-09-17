@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.ExecutionException;
+
 @Slf4j
 @RestController
 @RequestMapping(value = "/customers", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -24,7 +26,7 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<CreateCustomerResponse> createCustomer(
-            @RequestBody CreateCustomerCommand createCustomerCommand) {
+            @RequestBody CreateCustomerCommand createCustomerCommand) throws ExecutionException, InterruptedException {
         log.info("Creating customer with username: {}", createCustomerCommand.getUsername());
         CreateCustomerResponse response = customerApplicationService.createCustomer(createCustomerCommand);
         return ResponseEntity.ok(response);

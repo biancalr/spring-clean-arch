@@ -11,13 +11,6 @@
         }
     },
     {
-        "name": "sagaId",
-        "type": {
-            "type": "string",
-            "logicalType": "uuid"
-        }
-    },
-    {
       "name": "username",
       "type": {
         "type": "string"
@@ -34,14 +27,6 @@
       "type": {
         "type": "string"
       }
-    },
-    {
-        "name": "customerStatus",
-        "type": {
-              "type": "enum",
-              "name": "CustomerStatus",
-              "symbols": ["CREATED"]
-        }
     },
     {
           "name": "createdAt",

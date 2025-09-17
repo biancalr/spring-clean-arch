@@ -3,10 +3,9 @@ package com.food.ordering.system.customer.service.dataaccess.customer.entity;
 import com.food.ordering.system.domain.valueobject.CustomerStatus;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -23,5 +22,16 @@ public class CustomerEntity {
     private String firstName;
     private String lastName;
     private ZonedDateTime createdAt;
-    private CustomerStatus customerStatus;
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomerEntity that = (CustomerEntity) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

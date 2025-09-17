@@ -16,22 +16,19 @@ public class Customer extends AggregateRoot<CustomerId> {
     private final String firstName;
     private final String lastName;
 
-    private CustomerStatus customerStatus;
     private ZonedDateTime createdAt;
 
-    private Customer(Builder builder) {
+    public Customer(Builder builder) {
         super.setId(builder.customerId);
         username = builder.username;
         firstName = builder.firstName;
         lastName = builder.lastName;
-        customerStatus = builder.customerStatus;
         createdAt = builder.createdAt;
     }
 
     public void initializeCustomer(){
         setId(new CustomerId(UUID.randomUUID()));
         createdAt = ZonedDateTime.now(ZoneId.of(UTC));
-        updateCustomerStatus(CustomerStatus.CREATED);
     }
 
     public String getUsername() {
@@ -46,20 +43,12 @@ public class Customer extends AggregateRoot<CustomerId> {
         return lastName;
     }
 
-    public CustomerStatus getCustomerStatus() {
-        return customerStatus;
-    }
-
     public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     public static Builder builder() {
         return new Builder();
-    }
-
-    private void updateCustomerStatus(CustomerStatus customerStatus) {
-        this.customerStatus = customerStatus;
     }
 
     public void validateCustomer(Customer customer) {
@@ -73,7 +62,6 @@ public class Customer extends AggregateRoot<CustomerId> {
         private String username;
         private String firstName;
         private String lastName;
-        private CustomerStatus customerStatus;
         private ZonedDateTime createdAt;
 
         private Builder() {
@@ -96,11 +84,6 @@ public class Customer extends AggregateRoot<CustomerId> {
 
         public Builder lastName(String val) {
             lastName = val;
-            return this;
-        }
-
-        public Builder customerStatus(CustomerStatus val) {
-            customerStatus = val;
             return this;
         }
 
